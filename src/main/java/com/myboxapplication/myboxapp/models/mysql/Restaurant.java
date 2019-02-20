@@ -68,6 +68,7 @@ public class Restaurant implements Serializable {
     private String phoneNumber;
 
     @Column(nullable = false,name = "email", unique = true)
+   // @Email(message = "Please provide a valid e-mail")
     @NotEmpty(message = "Please provide an e-mail")
     private String email;
 

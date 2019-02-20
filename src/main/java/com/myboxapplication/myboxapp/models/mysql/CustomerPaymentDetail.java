@@ -3,12 +3,12 @@ package com.myboxapplication.myboxapp.models.mysql;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.myboxapplication.myboxapp.codetype.PaymentMethod;
 import com.myboxapplication.myboxapp.codetype.PaymentStatus;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "customer_payment_detail")
@@ -19,6 +19,10 @@ public class CustomerPaymentDetail implements Serializable {
     @Column(name = "payment_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long paymentId;
+
+   /* @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "customer_order_id",referencedColumnName = "customer_order_id")
+    private CustomerOrder customerOrder;*/
 
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_method",nullable = false)
@@ -36,7 +40,6 @@ public class CustomerPaymentDetail implements Serializable {
     private PaymentStatus paymentStatus;
 
     @Column(name = "card_token")
-    @Value("${cardToken:0}")
     private int cardToken;
 
     public long getPaymentId() {

@@ -51,9 +51,9 @@ public class CustomerOrderDetailResource {
     	OrderCartDetailResonse  customerOrderDtl =customerOrderDetailService.addCustomerOrderDetail(orderCartRequestData);
     		if(customerOrderDtl != null)
     			return ResponseEntity
-                       .status(HttpStatus.CREATED)
-                           .body(responseGenerator
-                               .success(customerOrderDtl,"customer.order.added"));
+                .status(HttpStatus.CREATED)
+                .body(responseGenerator
+                        .success(customerOrderDtl,"customer.order.added"));
     		else 
     			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

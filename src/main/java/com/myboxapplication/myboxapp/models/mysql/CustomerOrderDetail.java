@@ -40,6 +40,10 @@ public class CustomerOrderDetail implements Serializable{
 	@Column(name = "order_detail_date")
 	@CreatedDate
 	private String orderDetailDate;
+
+	/*@ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "cart", joinColumns = @JoinColumn(name = "cart_id"))
+	private List<Cart> cart; */
 	
 	@Column(name = "delivery_time")
     private String deliveryTime;

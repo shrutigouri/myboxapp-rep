@@ -2,8 +2,6 @@ package com.myboxapplication.myboxapp.repository;
 
 import com.myboxapplication.myboxapp.codetype.UserStatus;
 import com.myboxapplication.myboxapp.models.mysql.User;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -16,19 +14,17 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User,Long> {
 
-    Page<User> findAll(Pageable pageable);
+    List<User> findAll();
 
     User findUserByPhoneNumber(String phoneNumber);
 
     User findUserByEmail(String email);
 
        
-    //@Query("select u from User u where u.email = :email and u.phoneNumber = :phoneNumber")
-  //  User findUserByEmailAndPhoneNumber(@Param("email") String email,@Param("phoneNumber") String phoneNumber);
+    @Query("select u from User u where u.email = :email and u.phoneNumber = :phoneNumber")
+    User findUserByEmailAndPhoneNumber(@Param("email") String email,@Param("phoneNumber") String phoneNumber);
     
     User findByUsername(String username);
-
-    User findUserByEmailAndPhoneNumber(String email,String phoneNumber);
 
     User findByUserId(long userId);
 

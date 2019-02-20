@@ -23,74 +23,61 @@ public class CustomerOrderResource {
     CustomerOrderService customerOrderService;
 
     @GetMapping("getAll/public")
-    public ResponseEntity getAllCustOrder() {
-        List<CustomerOrder> customerOrder = customerOrderService.getAllCustomerOrder();
-        if (!customerOrder.isEmpty() && customerOrder != null)
-            return ResponseEntity
-                    .ok(responseGenerator
-                            .success(customerOrder, "custorder.list"));
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity getAllCustOrder(){
+    	List<CustomerOrder> customerOrder = customerOrderService.getAllCustomerOrder();
+    	if(!customerOrder.isEmpty() && customerOrder != null)
+        return ResponseEntity
+                .ok(responseGenerator
+                        .success(customerOrder,"custorder.list"));
+    	else
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("get/{id}/public")
-    public ResponseEntity getCustomerOrderId(@PathVariable("id") String customerOrderId) {
-        CustomerOrder customerOrder = customerOrderService.getCustomerOrderId(customerOrderId);
-        if (customerOrder != null)
-            return ResponseEntity
-                    .ok(responseGenerator
-                            .success(customerOrder, "custorder.found"));
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity getCustomerOrderId(@PathVariable("id") String customerOrderId){
+    	CustomerOrder customerOrder = customerOrderService.getCustomerOrderId(customerOrderId);
+    	if(customerOrder != null)
+        return ResponseEntity
+                .ok(responseGenerator
+                        .success(customerOrder,"custorder.found"));
+    	else
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("add/public")
-    public ResponseEntity addCustomerOrder(@RequestBody OrderCartRequestData orderCartRequestData) {
-        CustomerOrder CustomerOrderAdd = customerOrderService.addCustomerOrder(orderCartRequestData);
-        if (CustomerOrderAdd != null)
-            return ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .body(responseGenerator
-                            .success(CustomerOrderAdd, "custorder.added"));
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity addCustomerOrder(@RequestBody OrderCartRequestData orderCartRequestData){ 
+    	CustomerOrder CustomerOrderAdd= customerOrderService.addCustomerOrder(orderCartRequestData);
+    	if(CustomerOrderAdd != null)
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(responseGenerator
+                        .success(CustomerOrderAdd,"custorder.added"));
+    	else
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PutMapping("update/{id}/public")
-    public ResponseEntity updateCustomerOrder(@PathVariable("id") String customerOrderId, @RequestBody CustomerOrder customerOrder) {
-        CustomerOrder CustomerOrderUpd = customerOrderService.updateCustomerOrder(customerOrderId, customerOrder);
-        if (CustomerOrderUpd != null)
-            return ResponseEntity
-                    .ok(responseGenerator
-                            .success(CustomerOrderUpd, "custorder.updated"));
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-    
-   /* @DeleteMapping("delete/{id}/public")
-    public ResponseEntity deleteCustomerOrder(@PathVariable("id") String customerOrderId ){
-       customerOrderService.deleteByCustomerOrderId(customerOrderId);
-    	if(CustomerOrderDel != null)
-    	return ResponseEntity
+    public ResponseEntity updateCustomerOrder(@PathVariable("id") String customerOrderId ,@RequestBody CustomerOrder customerOrder){
+    	CustomerOrder CustomerOrderUpd = customerOrderService.updateCustomerOrder(customerOrderId,customerOrder);
+    	if(CustomerOrderUpd != null)
+    		return ResponseEntity
                 .ok(responseGenerator
-                        .success(customerOrderService.deleteByCustomerOrderId(customerOrderId),"custorder.updated"));
+                        .success(CustomerOrderUpd ,"custorder.updated"));
     	else
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }*/
-
-
-    @DeleteMapping(value = "/delete/{id}/public")
-    public ResponseEntity delete(@PathVariable("id") String customerOrderId) {
-        customerOrderService.deleteByCustomerOrderId(customerOrderId);
-        if (customerOrderId != null)
-            return ResponseEntity
-                    .ok(responseGenerator
-                            .success("Customer Order Deleted successfully", "custorder.deleted"));
-        else
-
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-
     }
+    
+    @PutMapping("delete/{id}/public")
+    public ResponseEntity deleteCustOrder(@PathVariable("id") String customerOrderId ,@RequestBody CustomerOrder customerOrder){
+    	CustomerOrder CustomerOrderDel = customerOrderService.deleteCustomerOrder(customerOrderId,customerOrder);
+    	if(CustomerOrderDel != null)    	
+    	return ResponseEntity
+                .ok(responseGenerator
+                        .success(CustomerOrderDel,"custorder.updated"));
+    	else
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+
 }
 

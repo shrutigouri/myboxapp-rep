@@ -14,11 +14,7 @@ public interface CustomerOrderService {
     
     CustomerOrder updateCustomerOrder(String customerOrderId, CustomerOrder customerOrder);
     
-   // CustomerOrder deleteCustomerOrder(String customerOrderId, CustomerOrder customerOrder);
-    void deleteByCustomerOrderId(String customerOrderId);
-
-   // void deleteProduct(Integer id);
-
+    CustomerOrder deleteCustomerOrder(String customerOrderId, CustomerOrder customerOrder);
 
     CustomerOrder getCustomerOrderId(String customerOrderId);
     

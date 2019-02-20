@@ -2,7 +2,6 @@ package com.myboxapplication.myboxapp.webservices;
 
 import com.myboxapplication.myboxapp.codetype.FoodType;
 import com.myboxapplication.myboxapp.models.mysql.Menu;
-import com.myboxapplication.myboxapp.models.mysql.Restaurant;
 import com.myboxapplication.myboxapp.repository.MenuRepository;
 import com.myboxapplication.myboxapp.services.MenuService;
 import com.myboxapplication.myboxapp.services.ResponseGenerator;
@@ -49,15 +48,13 @@ public class MenuResource {
                         .success(menuService.getMenuByFoodItemId(foodItemId),"menu.found"));
     }
 
-    @GetMapping("get/{id}/public")
-    public ResponseEntity getMenuByRestaurantId(@PathVariable("id") Restaurant restaurant){
+    @GetMapping("{id}/public")
+    public ResponseEntity getMenuByRestaurantId(@PathVariable("id") long restaurantId){
         return ResponseEntity
                 .ok(responseGenerator
-                        .success(menuService.getMenuByRestaurant(restaurant),"menu.found"));
+                        .success(menuService.getMenuByRestaurantId(restaurantId),"menu.found"));
     }
-
-
-
+    
     @PutMapping("update/{id}/public")
     public ResponseEntity updateMenu(@RequestBody Menu menu,@PathVariable("id") long foodItemId){
         return ResponseEntity
@@ -65,7 +62,7 @@ public class MenuResource {
                         .success(menuService.updateMenu(foodItemId,menu),"menu.updated"));
     }
 
-    @PostMapping("{id}/image/public")
+    @PostMapping("{id}/image")
     public ResponseEntity uploadMenuImage(@RequestParam("file") MultipartFile file, @PathVariable("id") long foodItemId){
         return ResponseEntity
                 .ok(responseGenerator
@@ -79,10 +76,10 @@ public class MenuResource {
     }
 
     @DeleteMapping("delete/{id}/public")
-    public ResponseEntity deleteMenuByFoodItemId(@PathVariable("id") long foodItemId){
-        menuService.deleteMenuByFoodItemId(foodItemId);
-       return ResponseEntity
-                .ok(responseGenerator.success("Menu deleted successfully","menu.deleted"));
+    public void deleteMenuByFoodItemId(@PathVariable long foodItemId,Menu menu){
+        menuService.deleteMenuByFoodItemId(foodItemId,menu);
+        ResponseEntity
+                .ok(responseGenerator.success(null,"menu.deleted"));
     }
 
 

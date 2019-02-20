@@ -25,8 +25,8 @@ public class RestaurantResource  {
     ResponseGenerator responseGenerator;
 
     @GetMapping("public")
-    public ResponseEntity getAllRestaurant(Pageable pageable){
-        return ResponseEntity.ok(responseGenerator.success(restaurentService.getAllRestaurants(pageable),"resteraunt.lists"));
+    public ResponseEntity getAllRestaurant(){
+        return ResponseEntity.ok(responseGenerator.success(restaurentService.getAllRestaurants(),"resteraunt.lists"));
     }
 
     @GetMapping("{restaurant_name}/public")

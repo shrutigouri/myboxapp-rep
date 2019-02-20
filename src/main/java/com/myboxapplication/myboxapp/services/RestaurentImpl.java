@@ -28,8 +28,8 @@ public class RestaurentImpl implements RestaurentService {
     UserRepository userRepository;
 
     @Override
-    public Page<Restaurant> getAllRestaurants(Pageable pageable) {
-        return restaurantRepository.findAll(pageable);
+    public List<Restaurant> getAllRestaurants() {
+        return restaurantRepository.findAll();
     }
 
     @Override

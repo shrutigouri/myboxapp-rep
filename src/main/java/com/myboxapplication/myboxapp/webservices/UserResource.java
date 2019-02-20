@@ -13,7 +13,6 @@ import com.myboxapplication.myboxapp.services.ResponseGenerator;
 import com.myboxapplication.myboxapp.services.RestaurentService;
 import com.myboxapplication.myboxapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,8 +45,8 @@ public class UserResource {
     UserRepository userRepository;
 
     @GetMapping("/public")
-    public ResponseEntity getAllUsers(Pageable pageable) {
-        Page<User> user = userService.getAllUsers(pageable);
+    public ResponseEntity getAllUsers() {
+        List<User> user = userService.getAllUsers();
         if(user != null & !user.isEmpty()) {
         	return ResponseEntity.ok(responseGenerator
                 .success(user,"user.list"));
@@ -119,8 +118,7 @@ public class UserResource {
         if(userExists != null) {
         	String userResp = userExists.getUserId() + " user with phone number "+userExists.getPhoneNumber() + " already exists";
         	logger.info(userResp);
-            return ResponseEntity.status(HttpStatus.FOUND).body(responseGenerator
-                    .error(userLoginResponse,"user.exists"));
+        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
         	 User user = userService.AddUserLoginDetail(requestData);
         	 userLoginResponse.setUser(user);
@@ -132,8 +130,7 @@ public class UserResource {
         if(userLoginResponse != null)
         	return ResponseEntity.status(HttpStatus.CREATED).body(responseGenerator.success(userLoginResponse,"user.signup"));
         else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseGenerator
-                    .error(userLoginResponse,"user.not.found"));
+        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         }  	
     }
@@ -149,8 +146,7 @@ public class UserResource {
         	return ResponseEntity.ok(responseGenerator
                 .success(userLoginResponse,"user.found"));
         }else
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseGenerator
-                    .error(userLoginResponse,"user.not.found"));
+        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PutMapping("update/pwd/public")
@@ -166,9 +162,8 @@ public class UserResource {
 	                        .success(userLoginResponse,"user.updated"));
     	}
     	else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseGenerator
-                    .error(userLoginResponse,"user.not.found"));
-        }
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
     }
     
 
@@ -177,8 +172,7 @@ public class UserResource {
     	User user = null;
     	boolean validPwd = false;
     	UserLoginResponse userLoginResponse = new UserLoginResponse();
-        User userExists = userService.getUserByEmail(requestData.getEmail());
-
+        User userExists = userService.getUserByEmailAndPhoneNumber(requestData.getEmail(), requestData.getPhoneNumber());
         if(userExists != null) {
         	
         validPwd = bCryptPasswordEncoder.matches(requestData.getPassword(), userExists.getPassword());
@@ -193,10 +187,8 @@ public class UserResource {
                      .success(userLoginResponse,"user.found"));
         }
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseGenerator
-                .error(userLoginResponse,"user.not.found"));
+         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
     
     @PutMapping("update/status/public")
     public ResponseEntity updateUserStatusByEmailAndPassword(@RequestBody User user){
@@ -210,8 +202,8 @@ public class UserResource {
 	                        .success(userLoginResponse,"user.updated"));
     	}
     	else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseGenerator
-                    .error(userLoginResponse,"user.not.found"));    	}
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
     }
 }
 

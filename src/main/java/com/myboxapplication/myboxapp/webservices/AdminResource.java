@@ -3,8 +3,6 @@ package com.myboxapplication.myboxapp.webservices;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,8 +29,8 @@ public class AdminResource {
 	 UserService userService;
 	 
 	 @RequestMapping(value = "/restaurantlist", method = RequestMethod.GET)
-	    public String getAllRestaurant(Model model, Pageable pageable){
-	    	model.addAttribute("restaurants", restaurentService.getAllRestaurants(pageable));
+	    public String getAllRestaurant(Model model){
+	    	model.addAttribute("restaurants", restaurentService.getAllRestaurants());
 	        return "admin";
 	    }
 	 @GetMapping
@@ -41,12 +39,12 @@ public class AdminResource {
 		}
 	 
 	 @ModelAttribute("restaurant")
-	 public Page<Restaurant> restaurants(Pageable pageable) {
-	         return restaurentService.getAllRestaurants(pageable);
+	 public List<Restaurant> restaurants() {
+	         return restaurentService.getAllRestaurants();
 	 }
 	 
 	 @RequestMapping(value = "/enable/{id}", method = RequestMethod.GET)
-	    public String enableRestaurant(@PathVariable("id") long id, Model model,Pageable pageable){
+	    public String enableRestaurant(@PathVariable("id") long id, Model model){
 		 	Restaurant restaurant = restaurentService.getByRestaurantId(id);
 		 	if(restaurant != null) {
 		 		User user = restaurant.getUser();
@@ -58,12 +56,12 @@ public class AdminResource {
 		 		restaurant.setRestaurantSubscribeStatus(RestaurantSubscribeStatus.approve);
 		 	}
 		    restaurentService.updateRestaurant(restaurant.getRestaurantId() , restaurant);		    
-	    	model.addAttribute("restaurants", restaurentService.getAllRestaurants(pageable));
+	    	model.addAttribute("restaurants", restaurentService.getAllRestaurants());
 	        return "admin";
 	    }
 	 
 	 @RequestMapping(value = "/disable/{id}", method = RequestMethod.GET)
-	    public String disableRestaurant(@PathVariable("id") long id, Model model,Pageable pageable){
+	    public String disableRestaurant(@PathVariable("id") long id, Model model){
 		    Restaurant restaurant = restaurentService.getByRestaurantId(id);
 		    if(restaurant != null) {
 		    	User user = restaurant.getUser();
@@ -77,7 +75,7 @@ public class AdminResource {
 		 		restaurant.setRestaurantSubscribeStatus(RestaurantSubscribeStatus.decline);
 		 	}
 		    restaurentService.updateRestaurant(restaurant.getRestaurantId() , restaurant);
-	    	model.addAttribute("restaurants", restaurentService.getAllRestaurants(pageable));
+	    	model.addAttribute("restaurants", restaurentService.getAllRestaurants());
 	        return "admin";
 	    }
 }

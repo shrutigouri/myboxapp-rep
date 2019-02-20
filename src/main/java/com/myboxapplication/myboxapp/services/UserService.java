@@ -13,7 +13,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface UserService {
 
-    Page<User> getAllUsers(Pageable pageable);
+    List<User> getAllUsers();
 
     UserLoginResponse updateUser(RequestData requestData, long userId);
 

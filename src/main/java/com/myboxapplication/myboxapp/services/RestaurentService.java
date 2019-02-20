@@ -2,14 +2,11 @@ package com.myboxapplication.myboxapp.services;
 
 import com.myboxapplication.myboxapp.codetype.RestaurantSubscribeStatus;
 import com.myboxapplication.myboxapp.models.mysql.Restaurant;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
 import java.util.List;
 
 public interface RestaurentService {
 
-    Page<Restaurant> getAllRestaurants(Pageable pageable);
+    List<Restaurant> getAllRestaurants();
 
     Restaurant getByRestaurantName(String restaurantName);
 

@@ -138,7 +138,7 @@ public class UserServiceImpl implements UserService {
         }
         return rest;
     }
-
+   
     @Override
     public User getUserByEmailAndPhoneNumber(String email, String phoneNumber) {
         User user = null;
@@ -157,7 +157,6 @@ public class UserServiceImpl implements UserService {
       }
         return user;
     }
-
 
     @Override
     public int updateUserByEmailAndPhonenumber(User user) {
@@ -199,8 +198,8 @@ public class UserServiceImpl implements UserService {
     
     
     @Override
-    public Page<User> getAllUsers(Pageable pageable) {
-        return userRepository.findAll(pageable);
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
     @Override

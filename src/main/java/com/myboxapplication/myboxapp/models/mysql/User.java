@@ -27,6 +27,7 @@ import java.util.Date;
 public class User implements Serializable {
     @Id
     @Column (name = "user_id")
+    @Value("${userId:0}")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long userId;
 

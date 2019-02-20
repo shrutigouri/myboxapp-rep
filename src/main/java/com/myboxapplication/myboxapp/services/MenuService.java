@@ -20,11 +20,11 @@ public interface MenuService {
 
     Menu getMenuByFoodItemId(long foodItemId);
     
-    List<Menu> getMenuByRestaurant(Restaurant restaurant);
+    List<Menu> getMenuByRestaurantId(long restaurantId);
 
     String updateMenuImage(MultipartFile file, long menuId);
 
     List<Menu> getMenuByFoodtype(FoodType foodItemType);
 
-    void deleteMenuByFoodItemId(long foodItemId);
+    void deleteMenuByFoodItemId(long foodItemId,Menu menu);
 }

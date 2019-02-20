@@ -16,7 +16,7 @@ import java.util.List;
 public interface RestaurantRepository extends JpaRepository<Restaurant,Long> {
 
     //@Query("select r from restaurant r where r.rest_subscribe_status='approve'")
-    Page<Restaurant> findAll(Pageable pageable);
+    List<Restaurant> findAll();
 
     Restaurant findByRestaurantName(String restaurantName);
 

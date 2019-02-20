@@ -1,6 +1,9 @@
 package com.myboxapplication.myboxapp.services;
 
-import com.myboxapplication.myboxapp.codetype.*;
+import com.myboxapplication.myboxapp.codetype.DeliveryFoodStatus;
+import com.myboxapplication.myboxapp.codetype.OrderOverallStatus;
+import com.myboxapplication.myboxapp.codetype.PaymentMethod;
+import com.myboxapplication.myboxapp.codetype.PaymentStatus;
 import com.myboxapplication.myboxapp.exceptions.CustOrderNotFoundException;
 import com.myboxapplication.myboxapp.models.mysql.CustomerOrderDetail;
 import com.myboxapplication.myboxapp.models.mysql.CustomerPaymentDetail;
@@ -10,12 +13,10 @@ import com.myboxapplication.myboxapp.models.mysql.CustomerOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 
 @Service
-@Transactional
 public class CustomerOrderImpl implements CustomerOrderService {
 
     @Autowired
@@ -49,8 +50,8 @@ public class CustomerOrderImpl implements CustomerOrderService {
 	    customerOrder1.setDeliveryFoodStatus(DeliveryFoodStatus.NotPlaced);
 	    customerOrder1.setOrderOverallStatus(OrderOverallStatus.inprogress);
 	    customerOrder1.setOrderProgressComment(null);
-
-        return customerOrderRepository.save(customerOrder1);
+	    customerOrder1.setCustomerPaymentDetail(customerPaymentDetail1);
+	    return customerOrderRepository.save(customerOrder1);
     }
 
     @Override
@@ -61,16 +62,13 @@ public class CustomerOrderImpl implements CustomerOrderService {
 
             throw new CustOrderNotFoundException("CustomerOrder not Found= " +customerOrderId);
         }
+
         customerOrder1.setCustOrderDate(customerOrder.getCustOrderDate());
         customerOrder1.setDeliveryFoodStatus(DeliveryFoodStatus.Onhand);
-        customerOrder1.setOrderOverallStatus(OrderOverallStatus.success);
-        customerOrder1.setCustRatingStatus(CustRatingStatus.rated);
-        customerOrder1.setCustRating(customerOrder.getCustRating());
-        customerOrder1.setDeliveryFoodStatus(DeliveryFoodStatus.NotPlaced);
-        customerOrder1.setOrderOverallStatus(OrderOverallStatus.inprogress);
-        customerOrder1.setOrderProgressComment(customerOrder.getOrderProgressComment());
-
+        customerOrder1.setOrderOverallStatus(OrderOverallStatus.success);  
+        
         return customerOrderRepository.save(customerOrder1);
+
     }
 
     @Override
@@ -78,19 +76,11 @@ public class CustomerOrderImpl implements CustomerOrderService {
         return customerOrderRepository.findByCustomerOrderId(customerOrderId);
     }
 
-
-    @Override
-    public void deleteByCustomerOrderId(String customerOrderId) {
-
-        CustomerOrder customerOrder1 = customerOrderRepository.findByCustomerOrderId(customerOrderId);
-
-        if (customerOrder1==null){
-
-            throw new CustOrderNotFoundException("CustomerOrder not Found= " +customerOrderId);
-        }
-
-        customerOrderRepository.deleteByCustomerOrderId(customerOrderId);
-    }
+	@Override
+	public CustomerOrder deleteCustomerOrder(String customerOrderId, CustomerOrder customerOrder) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
 

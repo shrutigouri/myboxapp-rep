@@ -1,7 +1,5 @@
 package com.myboxapplication.myboxapp.services;
 
-import com.myboxapplication.myboxapp.codetype.PaymentMethod;
-import com.myboxapplication.myboxapp.codetype.PaymentStatus;
 import com.myboxapplication.myboxapp.exceptions.CustomerPaymentDetailNotFoundException;
 import com.myboxapplication.myboxapp.models.mysql.CustomerOrder;
 import com.myboxapplication.myboxapp.models.mysql.CustomerPaymentDetail;
@@ -34,8 +32,6 @@ public class CustomerPaymentDetailImpl implements CustomerPaymentDetailService {
 
     @Override
     public CustomerPaymentDetail addCustomerPaymentDetail(CustomerPaymentDetail customerPaymentDetail) {
-        customerPaymentDetail.setPaymentMethod(PaymentMethod.cashinhand);
-        customerPaymentDetail.setPaymentStatus(PaymentStatus.inprogress);
         return customerPaymentDetailRepository.save(customerPaymentDetail);
     }
 

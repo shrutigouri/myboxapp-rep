@@ -1,6 +1,6 @@
 package com.myboxapplication.myboxapp.exceptionhandler;
 
-//import com.myboxapplication.myboxapp.exceptions.RecordNotFoundException;
+import com.myboxapplication.myboxapp.exceptions.RecordNotFoundException;
 import com.myboxapplication.myboxapp.models.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,26 +27,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     private static Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-
+      
 
     @Autowired
     ResponseGenerator responseGenerator;
-
+    
     @ExceptionHandler(Exception.class)
     @RequestMapping(produces = "application/json")
-    public final ResponseEntity<ApiResponse> handleAllExceptions(Exception ex, HttpServletRequest request) {
-        System.out.println("===================" + ex);
-        logger.error(ex.getLocalizedMessage());
-
-        ApiResponse error = new ApiResponse("Internal Server Error", ex.getLocalizedMessage());
+    public final ResponseEntity<ApiResponse> handleAllExceptions(Exception ex, HttpServletRequest  request) {
+    	System.out.println("==================="+ex);
+     	logger.error(ex.getLocalizedMessage());
+ 
+        ApiResponse error = new ApiResponse("Internal Server Error", ex.getLocalizedMessage());      
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(responseGenerator.error(error, "internal.server.error"));
-
+        
     }
-}
  
-  /*  @ExceptionHandler(RecordNotFoundException.class)
+    @ExceptionHandler(RecordNotFoundException.class)
     @RequestMapping(produces = "application/json")
     public final ResponseEntity<Object> handleUserNotFoundException(RecordNotFoundException ex, WebRequest request) {
     	System.out.println("==================="+ex);
@@ -70,4 +69,3 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
     }
 }
-*/

@@ -1,10 +1,10 @@
 package com.myboxapplication.myboxapp.models;
 
+//cartmenudata
 public class CartMenuData {
 	private long foodItemId;
 	private double price;
 	private Integer quantity;
-	
 	public long getFoodItemId() {
 		return foodItemId;
 	}

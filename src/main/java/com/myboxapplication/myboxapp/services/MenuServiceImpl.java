@@ -13,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @Service
-@Transactional
 public class MenuServiceImpl implements MenuService {
 
     @Autowired
@@ -47,8 +45,12 @@ public class MenuServiceImpl implements MenuService {
     }
     
     @Override
-    public List<Menu> getMenuByRestaurant(Restaurant restaurant){
-    	 return menuRepository.getMenuByRestaurant(restaurant);
+    public List<Menu> getMenuByRestaurantId(long restaurantId){
+    	 Restaurant restaurant = restaurantRepository.findByRestaurantId(restaurantId);
+    	 List<Menu> menu = null;
+    	 if(restaurant!= null)
+    		 menu = menuRepository.findMenuByRestaurantId(restaurantId);
+    	 return menu;
     }
 
     @Override
@@ -68,10 +70,16 @@ public class MenuServiceImpl implements MenuService {
 
         if (menu1==null){
 
+          //  throw new MenuNotFoundException("Menu not Found= " +foodItemId);
 
            return (Menu) ResponseEntity
                    .status(HttpStatus.NO_CONTENT);
 
+           /* return  ResponseEntity
+                        .status(HttpStatus.NO_CONTENT)
+                        .body(responseGenerator
+                               .error("menu.not.found",ex.getStackTrace().toString()));
+*/
 
         }
 
@@ -102,7 +110,7 @@ public class MenuServiceImpl implements MenuService {
 
 
     @Override
-    public void deleteMenuByFoodItemId(long foodItemId) {
+    public void deleteMenuByFoodItemId(long foodItemId,Menu menu) {
 
         Menu menu1 = menuRepository.findMenuByFoodItemId(foodItemId);
 
@@ -110,7 +118,7 @@ public class MenuServiceImpl implements MenuService {
 
             throw new MenuNotFoundException("Menu not Found= " +foodItemId);
         }
-        menuRepository.deleteMenuByFoodItemId(foodItemId);
+        menuRepository.delete(menu1);
     }
 
 }
