@@ -34,8 +34,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     @RequestMapping(produces = "application/json")
-    public final ResponseEntity<ApiResponse> handleAllExceptions(Exception ex, HttpServletRequest request) {
-        System.out.println("===================" + ex);
+    public final ResponseEntity<ApiResponse> handleAllExceptions(Exception ex, HttpServletRequest  request) {
+        System.out.println("==================="+ex);
         logger.error(ex.getLocalizedMessage());
 
         ApiResponse error = new ApiResponse("Internal Server Error", ex.getLocalizedMessage());
@@ -45,17 +45,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     }
 
- 
-   @ExceptionHandler(RecordNotFoundException.class)
+    @ExceptionHandler(RecordNotFoundException.class)
     @RequestMapping(produces = "application/json")
     public final ResponseEntity<Object> handleUserNotFoundException(RecordNotFoundException ex, WebRequest request) {
-    	System.out.println("==================="+ex);
-     	logger.error(ex.getLocalizedMessage());
+        System.out.println("==================="+ex);
+        logger.error(ex.getLocalizedMessage());
 
         ApiResponse error = new ApiResponse("Record Not Found", ex.getLocalizedMessage());
         return new ResponseEntity(error, HttpStatus.NOT_FOUND);
     }
- 
+
     @Override
     @RequestMapping(produces = "application/json")
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -64,7 +63,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             details.add(error.getDefaultMessage());
         }
         System.out.println("==================="+ex);
-     	logger.error(ex.getStackTrace().toString());
+        logger.error(ex.getStackTrace().toString());
 
         ApiResponse error = new ApiResponse("Validation Failed", details.toString());
         return new ResponseEntity(error, HttpStatus.BAD_REQUEST);

@@ -1,0 +1,70 @@
+<! DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>MyBox Admin Panel</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <style>
+  table.table-fit {
+    width: auto !important;
+    table-layout: auto !important;
+	}
+	table
+{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+  </style>
+</head>
+ 
+<body>
+<div class="container">
+	<h1>Restaurant Details</h1>
+  		  <div class="table-responsive text-nowrap">
+		<table id="customerTable" class="table">
+			<thead>
+				<tr>
+					<!-- <th>Restaurant Id</th>  -->
+					<th>Restaurant Name</th>
+					<th>Restaurant Address</th>
+					<th>Restaurant Location</th>
+					<th>Restaurant Rating</th>
+			        <th>Restaurant Subscribe Date</th>
+					<th>Restaurant Subscribe Status</th>
+					<th>Phone Number</th>
+					<th>Email</th>
+					<th>Revenue</th>
+					<th>Total Orders</th>
+					<th>Delivery Charges</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				 <tr th:each="restaurant, rowStat: ${restaurants}"
+				 	 th:style="${rowStat.odd} ? 'color: gray' : 'color: blue;'">
+			        <!--  <td th:text="${restaurant.restaurantId}">1</td>  -->
+					<td th:text="${restaurant.restaurantName}">MacD</td>
+			        <td th:text="${restaurant.restaurantAddress}">AVE 23</td>
+			        <td th:text="${restaurant.restaurantLocation}">AVE N</td>
+			        <td th:text="${restaurant.restaurantRating}">3</td>
+			         <td th:text="${restaurant.restSubscribeDate}">03/02/2019</td>
+			         <td th:text="${restaurant.restaurantSubscribeStatus}">Pending</td>
+			         <td th:text="${restaurant.phoneNumber}">77587-77587</td>
+			         <td th:text="${restaurant.email}">dummyrest@restaurant.in</td>
+			         <td th:text="${restaurant.totalRevenue}">0</td>
+			         <td th:text="${restaurant.totalOrders}">10</td>
+			          <td th:text="${restaurant.deliveryCharges}">10</td>
+			         <td><a th:href="@{/admin/enable/{id}(id=${restaurant.restaurantId})}">Enable/</a>		    
+			    	 <a th:href="@{/admin/disable/{id}(id=${restaurant.restaurantId})}">Disable</a></td>
+			       </tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</body>
+</html>
