@@ -1,6 +1,6 @@
 package com.myboxapplication.myboxapp.exceptionhandler;
 
-//import com.myboxapplication.myboxapp.exceptions.RecordNotFoundException;
+import com.myboxapplication.myboxapp.exceptions.RecordNotFoundException;
 import com.myboxapplication.myboxapp.models.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,9 +44,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .body(responseGenerator.error(error, "internal.server.error"));
 
     }
-}
+
  
-  /*  @ExceptionHandler(RecordNotFoundException.class)
+   @ExceptionHandler(RecordNotFoundException.class)
     @RequestMapping(produces = "application/json")
     public final ResponseEntity<Object> handleUserNotFoundException(RecordNotFoundException ex, WebRequest request) {
     	System.out.println("==================="+ex);
@@ -70,4 +70,3 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
     }
 }
-*/
