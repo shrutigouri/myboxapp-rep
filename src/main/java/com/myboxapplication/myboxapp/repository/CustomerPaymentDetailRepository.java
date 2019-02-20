@@ -12,9 +12,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CustomerPaymentDetailRepository extends JpaRepository<CustomerPaymentDetail,Long> {
 
-    List<CustomerPaymentDetail> findAll();
+    Page<CustomerPaymentDetail> findAll(Pageable pageable);
 
     CustomerPaymentDetail findByPaymentId(long paymentId);
     
-  //  CustomerPaymentDetail findByCustomerOrderId(String customerOrderId);
 }

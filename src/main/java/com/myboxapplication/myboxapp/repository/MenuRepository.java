@@ -17,7 +17,7 @@ public interface MenuRepository extends JpaRepository<Menu,Long> {
 
     Menu findMenuByFoodItemId(long foodItemId);
 
-    List<Menu> findMenuByFoodType(FoodType foodType);
+    Page<Menu> findMenuByFoodType(FoodType foodType,Pageable pageable);
 
     @Query("SELECT m FROM Menu m where m.restaurant =:restaurant")
     List<Menu> getMenuByRestaurant(@Param("restaurant") Restaurant restaurant);

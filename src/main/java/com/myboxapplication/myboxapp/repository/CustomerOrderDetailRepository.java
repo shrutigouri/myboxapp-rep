@@ -2,6 +2,8 @@ package com.myboxapplication.myboxapp.repository;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,7 +20,7 @@ import com.myboxapplication.myboxapp.models.mysql.User;
 @Repository
 public interface CustomerOrderDetailRepository extends JpaRepository<CustomerOrderDetail,Long> {
 
-    List<CustomerOrderDetail> findAll();
+    Page<CustomerOrderDetail> findAll(Pageable pageable);
 
     CustomerOrderDetail findByOrderCartDetailId(long orderCartDetailId);
     

@@ -1,8 +1,11 @@
 package com.myboxapplication.myboxapp.services;
 
+import com.myboxapplication.myboxapp.codetype.OrderType;
 import com.myboxapplication.myboxapp.models.OrderCartRequestData;
 import com.myboxapplication.myboxapp.models.mysql.CustomerOrder;
 import com.myboxapplication.myboxapp.models.mysql.CustomerOrderDetail;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -14,13 +17,12 @@ public interface CustomerOrderService {
     
     CustomerOrder updateCustomerOrder(String customerOrderId, CustomerOrder customerOrder);
     
-   // CustomerOrder deleteCustomerOrder(String customerOrderId, CustomerOrder customerOrder);
     void deleteByCustomerOrderId(String customerOrderId);
 
-   // void deleteProduct(Integer id);
-
-
     CustomerOrder getCustomerOrderId(String customerOrderId);
-    
+
+    Page<CustomerOrder> getOrderByOrderType(OrderType orderType, Pageable pageable);
+
+
 }
 

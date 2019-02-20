@@ -21,10 +21,10 @@ public class CustomerPaymentDetailResource {
     CustomerPaymentDetailService customerPaymentDetailService;
 
     @GetMapping("public")
-    public ResponseEntity getAllCustPaymentDetail(){
+    public ResponseEntity getAllCustPaymentDetail(Pageable pageable){
         return ResponseEntity
                 .ok(responseGenerator
-                        .success(customerPaymentDetailService.getAllCustomerPaymentDetail(),"paymentdetail.list"));
+                        .success(customerPaymentDetailService.getAllCustomerPaymentDetail(pageable),"paymentdetail.list"));
     }
 
     @GetMapping("{id}/paymentdetail/public")

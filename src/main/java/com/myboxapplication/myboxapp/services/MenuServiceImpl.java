@@ -95,8 +95,8 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<Menu> getMenuByFoodtype(FoodType foodType) {
-        return menuRepository.findMenuByFoodType(foodType);
+    public Page<Menu> getMenuByFoodtype(FoodType foodType ,Pageable pageable) {
+        return menuRepository.findMenuByFoodType(foodType,pageable);
     }
 
 

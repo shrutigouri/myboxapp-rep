@@ -8,15 +8,13 @@ import java.util.List;
 
 public interface CustomerPaymentDetailService {
 
-    List<CustomerPaymentDetail> getAllCustomerPaymentDetail();
+    Page<CustomerPaymentDetail> getAllCustomerPaymentDetail(Pageable pageable);
 
     CustomerPaymentDetail addCustomerPaymentDetail(CustomerPaymentDetail customerPaymentDetail);
 
     CustomerPaymentDetail updateCustomerPaymentDetail(long paymentId, CustomerPaymentDetail customerPaymentDetails);
 
     CustomerPaymentDetail getCustomerPaymentDetailById(long paymentId);
-    
-   // CustomerPaymentDetail getCustomerPaymentByCustomerOrderId(String customerOrderId);
- 
+
 
 }

@@ -93,14 +93,6 @@ public class CustomerOrderDetail implements Serializable{
 		this.orderDetailDate = orderDetailDate;
 	}
 
-	/*public List<Cart> getCart() {
-		return cart;
-	}
-
-	public void setCart(List<Cart> cart) {
-		this.cart = cart;
-	} */
-
 	public Restaurant getRestaurant() {
 		return restaurant;
 	}
@@ -117,5 +109,4 @@ public class CustomerOrderDetail implements Serializable{
 		this.user = user;
 	}
 
-	
 }

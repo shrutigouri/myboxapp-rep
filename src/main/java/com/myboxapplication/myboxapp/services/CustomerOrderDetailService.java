@@ -5,11 +5,13 @@ import java.util.List;
 import com.myboxapplication.myboxapp.models.OrderCartDetailResonse;
 import com.myboxapplication.myboxapp.models.OrderCartRequestData;
 import com.myboxapplication.myboxapp.models.mysql.CustomerOrderDetail;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface CustomerOrderDetailService {
 	
 
-    List<CustomerOrderDetail> getAllCustomerOrderDetail();
+    Page<CustomerOrderDetail> getAllCustomerOrderDetail(Pageable pageable);
 
     OrderCartDetailResonse addCustomerOrderDetail(OrderCartRequestData orderCartRequestData); 
 

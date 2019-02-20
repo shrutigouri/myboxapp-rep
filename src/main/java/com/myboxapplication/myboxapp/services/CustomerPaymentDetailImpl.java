@@ -28,8 +28,8 @@ public class CustomerPaymentDetailImpl implements CustomerPaymentDetailService {
     CustomerOrderRepository customerOrderRepository;
 
     @Override
-    public List<CustomerPaymentDetail> getAllCustomerPaymentDetail() {
-        return customerPaymentDetailRepository.findAll();
+    public Page<CustomerPaymentDetail> getAllCustomerPaymentDetail(Pageable pageable) {
+        return customerPaymentDetailRepository.findAll(pageable);
     }
 
     @Override

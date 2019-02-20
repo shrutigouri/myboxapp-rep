@@ -17,6 +17,8 @@ import com.myboxapplication.myboxapp.repository.RestaurantRepository;
 import com.myboxapplication.myboxapp.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -49,8 +51,8 @@ public class CustomerOrderDetailImpl implements CustomerOrderDetailService {
 
 
     @Override
-    public List<CustomerOrderDetail> getAllCustomerOrderDetail() {
-        return customerOrderDetailRepository.findAll();
+    public Page<CustomerOrderDetail> getAllCustomerOrderDetail(Pageable pageable) {
+        return customerOrderDetailRepository.findAll(pageable);
     }
 
     @Override

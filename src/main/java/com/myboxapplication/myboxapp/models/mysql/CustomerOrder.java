@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.myboxapplication.myboxapp.codetype.CustRatingStatus;
 import com.myboxapplication.myboxapp.codetype.DeliveryFoodStatus;
 import com.myboxapplication.myboxapp.codetype.OrderOverallStatus;
+import com.myboxapplication.myboxapp.codetype.OrderType;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.annotation.CreatedDate;
@@ -48,6 +49,10 @@ public class CustomerOrder implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "cust_rating_status")
     private CustRatingStatus custRatingStatus;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "order_type")
+    private OrderType orderType;
     
 
 	@Column(name = "delivery_food_status")
@@ -116,5 +121,13 @@ public class CustomerOrder implements Serializable {
 	public void setCustomerPaymentDetail(CustomerPaymentDetail customerPaymentDetail) {
 		this.customerPaymentDetail = customerPaymentDetail;
 	}
+
+    public OrderType getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(OrderType orderType) {
+        this.orderType = orderType;
+    }
 }
 

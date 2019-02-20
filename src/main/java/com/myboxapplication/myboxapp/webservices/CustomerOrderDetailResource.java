@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,8 +37,8 @@ public class CustomerOrderDetailResource {
     CustomerOrderDetailService customerOrderDetailService;
 
     @GetMapping("/getAll/public")
-    public ResponseEntity getCustomerOrderDetail() {
-    	List<CustomerOrderDetail> customerOrderDetail = customerOrderDetailService.getAllCustomerOrderDetail();
+    public ResponseEntity getCustomerOrderDetail(Pageable pageable) {
+    	Page<CustomerOrderDetail> customerOrderDetail = customerOrderDetailService.getAllCustomerOrderDetail(pageable);
     	if(customerOrderDetail != null)
         return ResponseEntity
                 .ok(responseGenerator

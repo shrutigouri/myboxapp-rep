@@ -73,9 +73,9 @@ public class MenuResource {
     }
 
     @GetMapping("foodtype/public")
-    public ResponseEntity getMenuByFoodType(@RequestParam(value = "foodType", required = false) FoodType foodType) {
+    public ResponseEntity getMenuByFoodType(@RequestParam(value = "foodType", required = false) FoodType foodType,Pageable pageable) {
         return ResponseEntity
-                .ok(responseGenerator.success(menuService.getMenuByFoodtype(foodType),"types.menu"));
+                .ok(responseGenerator.success(menuService.getMenuByFoodtype(foodType,pageable),"types.menu"));
     }
 
     @DeleteMapping("delete/{id}/public")

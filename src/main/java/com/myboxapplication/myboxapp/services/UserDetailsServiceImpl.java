@@ -2,6 +2,8 @@ package com.myboxapplication.myboxapp.services;
 
 import com.myboxapplication.myboxapp.models.mysql.User;
 import com.myboxapplication.myboxapp.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,6 +20,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
+
+    private static Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

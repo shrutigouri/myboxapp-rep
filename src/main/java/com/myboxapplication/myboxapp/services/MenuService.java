@@ -24,7 +24,7 @@ public interface MenuService {
 
     String updateMenuImage(MultipartFile file, long menuId);
 
-    List<Menu> getMenuByFoodtype(FoodType foodItemType);
+    Page<Menu> getMenuByFoodtype(FoodType foodItemType,Pageable pageable);
 
     void deleteMenuByFoodItemId(long foodItemId);
 }

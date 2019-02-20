@@ -8,6 +8,8 @@ import com.myboxapplication.myboxapp.repository.CustomerOrderRepository;
 import com.myboxapplication.myboxapp.models.OrderCartRequestData;
 import com.myboxapplication.myboxapp.models.mysql.CustomerOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -45,6 +47,7 @@ public class CustomerOrderImpl implements CustomerOrderService {
     	customerOrder1.setCustomerOrderId(custOrderId);
     	customerOrder1.setCustOrderDate(orderCartRequestData.getOrderDate());
 	    customerOrder1.setCustRatingStatus(null);
+	    customerOrder1.setOrderType(OrderType.neworder);
 	    customerOrder1.setCustRating(4.5);
 	    customerOrder1.setDeliveryFoodStatus(DeliveryFoodStatus.NotPlaced);
 	    customerOrder1.setOrderOverallStatus(OrderOverallStatus.inprogress);
@@ -66,6 +69,7 @@ public class CustomerOrderImpl implements CustomerOrderService {
         customerOrder1.setOrderOverallStatus(OrderOverallStatus.success);
         customerOrder1.setCustRatingStatus(CustRatingStatus.rated);
         customerOrder1.setCustRating(customerOrder.getCustRating());
+        customerOrder1.setOrderType(OrderType.onhand);
         customerOrder1.setDeliveryFoodStatus(DeliveryFoodStatus.NotPlaced);
         customerOrder1.setOrderOverallStatus(OrderOverallStatus.inprogress);
         customerOrder1.setOrderProgressComment(customerOrder.getOrderProgressComment());
@@ -90,6 +94,11 @@ public class CustomerOrderImpl implements CustomerOrderService {
         }
 
         customerOrderRepository.deleteByCustomerOrderId(customerOrderId);
+    }
+
+    @Override
+    public Page<CustomerOrder> getOrderByOrderType(OrderType orderType, Pageable pageable) {
+        return customerOrderRepository.findOrderByOrderType(orderType,pageable);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.myboxapplication.myboxapp.webservices;
 
+import com.myboxapplication.myboxapp.codetype.OrderType;
 import com.myboxapplication.myboxapp.models.OrderCartRequestData;
 import com.myboxapplication.myboxapp.models.mysql.CustomerOrder;
 import com.myboxapplication.myboxapp.services.CustomerOrderService;
@@ -8,6 +9,7 @@ import com.myboxapplication.myboxapp.services.ResponseGenerator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -91,6 +93,12 @@ public class CustomerOrderResource {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
 
+    }
+
+    @GetMapping("orderType/public")
+    public ResponseEntity getOrderByOrderType(@RequestParam(value = "orderType", required = false) OrderType orderType, Pageable pageable) {
+        return ResponseEntity
+                .ok(responseGenerator.success(customerOrderService.getOrderByOrderType(orderType,pageable),"types.order"));
     }
 }
 

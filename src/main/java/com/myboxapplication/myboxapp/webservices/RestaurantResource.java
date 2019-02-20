@@ -77,7 +77,7 @@ public class RestaurantResource  {
     	List<Restaurant> restaurants = restaurentService.getRestaurantByRestaurantSubscribeStatus(restaurantSubscribeStatus);
     	if (!restaurants.isEmpty() && restaurants != null && restaurants.size() > 0)
     	return ResponseEntity
-                .ok(responseGenerator.success(restaurentService.getRestaurantByRestaurantSubscribeStatus(restaurantSubscribeStatus),"approve.rest.found"));
+                .ok(responseGenerator.success(restaurants,"approve.rest.found"));
     	else
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
