@@ -13,16 +13,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CustomerOrderRepository extends JpaRepository<CustomerOrder,Long> {
 
-   // CustomerOrder findByPaymentId(long paymentId);
+
     
     CustomerOrder  findByCustomerOrderId(String customerOrderId);
     
     List<CustomerOrder> findAll();
 
-   /* @Modifying
-    @Query("delete from CustomerOrder where customerOrderId = :customerOrderId")
-    void deleteByCustomerOrderId(@Param("customerOrderId") String customerOrderId);
-*/
     void deleteByCustomerOrderId(String customerOrderId);
 }
 
